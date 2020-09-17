@@ -18,7 +18,7 @@
       <label class="length-label" for="selectLength">Password Length</label>
       <input type="range" class="custom-range" id="lengthSlider" min="6" max="128" value="6" onChange="updateLengthInput(this.value)">
       <div class="form-div">
-        <input type="number" class="length-input" id="lengthInput" min="6" max="128" value="6"/>
+        <input type="number" class="length-input" id="lengthInput" min="6" max="128" value="6" onChange="updateLengthSlder(this.value)"/>
         <div class="custom-control custom-switch">
           <input type="checkbox" class="custom-control-input" id="upperCaseChecked" onChange="setOption(this.id)">
           <label class="custom-control-label" for="upperCaseChecked">Include Uppercase Letters</label>

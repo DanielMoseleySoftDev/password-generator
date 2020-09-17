@@ -2,7 +2,7 @@
 const LOWER_CASE_CHARS = generateCharArray(97, 122);
 const UPPER_CASE_CHARS = generateCharArray(65, 90);
 const NUMBER_CHARS = generateCharArray(48, 57);
-const SYMBOL_CHARS = [ ...generateCharArray(33, 47), ...generateCharArray(58, 64), ...generateCharArray(91, 96), ...generateCharArray(123, 126)];
+const SYMBOL_CHARS = [...generateCharArray(33, 47), ...generateCharArray(58, 64), ...generateCharArray(91, 96), ...generateCharArray(123, 126)];
 
 var includeLowerCase = true;
 var includeUpperCase = false;
@@ -12,6 +12,7 @@ var includeSymbols = false;
 function generatePassword(length) {
   //check selected options by looking for variables set to true
   const optionsArray = [includeLowerCase, includeUpperCase, includeNumbers, includeSymbols];
+
   const numberOfOptions = function() {
     let numOptions = 0;
     for (const option of optionsArray) {
@@ -24,7 +25,6 @@ function generatePassword(length) {
 
   //ensures an even split of the desired options
   const characterSplit = length / numberOfOptions;
-  console.log(characterSplit);
 
   let lowerCaseSegment = [];
   let upperCaseSegment = [];
@@ -45,41 +45,46 @@ function generatePassword(length) {
   }
 
   //create an array which includes the spans of all segment arrays then scramble and convert to string
-  let passwordArray = [...lowerCaseSegment ,  ...upperCaseSegment, ...numbersSegment, ...symbolsSegment];
+  let passwordArray = [...lowerCaseSegment, ...upperCaseSegment, ...numbersSegment, ...symbolsSegment];
+
+  //ensures the length of the word is actually equal to the requested length by adding LOWER_CASE_CHARS
+  if (passwordArray.length !== length) {
+    for (let i = passwordArray.length; i < length; i++) {
+      randomIndex = Math.floor(Math.random() * LOWER_CASE_CHARS.length);
+      passwordArray.push(LOWER_CASE_CHARS[randomIndex]);
+    }
+  }
+
+  //scramble array and convert to string, then display
+  console.log(passwordArray.length);
   const finalPassword = scramblePassword(passwordArray);
-  document.getElementById("password").innerHTML = finalPassword;
+  document.getElementById("password").textContent = finalPassword;
 }
 
-
 function createPasswordSegment(characterSplit, array) {
-  var passwordSegment = [];
-  var randomIndex;
-  if(array) {
-    for(let i=1; i<=characterSplit; i++) {
-     randomIndex = Math.floor(Math.random() * array.length);
-     passwordSegment.push(array[randomIndex]);
-    }
-    return passwordSegment;
+  let passwordSegment = [];
+  for (let i = 1; i <= characterSplit; i++) {
+    randomIndex = Math.floor(Math.random() * array.length);
+    passwordSegment.push(array[randomIndex]);
   }
-  else {
-    return passwordSegment;
-  }
+  return passwordSegment;
 }
 
 //generate an array containing a range of charcodes
 function generateCharArray(low, high) {
-  const array = [];
-  for (let i=low; i<=high; i++) {
-    array.push(String.fromCharCode(i));
+  const charArray = [];
+  for (let i = low; i <= high; i++) {
+    charArray.push(String.fromCharCode(i));
   }
-  return array;
+  return charArray;
 }
 
+//convert array to string and scramble the order
 function scramblePassword(passwordArray) {
   let password = "";
-  let randomIndex;
   const passwordArrayLength = passwordArray.length;
-  for (let i=1; i<=passwordArrayLength; i++) {
+
+  for (let i = 1; i <= passwordArrayLength; i++) {
     randomIndex = Math.floor(Math.random() * passwordArray.length);
     password += passwordArray[randomIndex];
     //removes the added char so that there are no repeats
@@ -88,35 +93,37 @@ function scramblePassword(passwordArray) {
   return password;
 }
 
-function updateLengthInput(length) {
-  document.getElementById("lengthInput").value = length;
-}
-
+//option switch boolean logic
 function setOption(option) {
-
-  switch(option) {
-    case "upperCaseChecked" :
+  switch (option) {
+    case "upperCaseChecked":
       includeUpperCase = !includeUpperCase;
       break;
-    case "numbersChecked" :
+    case "numbersChecked":
       includeNumbers = !includeNumbers;
       break;
-    case "symbolsChecked" :
+    case "symbolsChecked":
       includeSymbols = !includeSymbols;
-    }
+  }
 }
 
+//'generate' button onClick logic
 function generateClicked() {
   const length = document.getElementById("lengthInput").value;
+
   if (length < 6) {
     alert("Passwords shorter than length 6 are extremely insecure, a password of length 12 or more containing a mix of lowercase, uppercase, numbers & symbols is strongly recommended.");
-  }
-  else if (length > 2048) {
+  } else if (length > 2048) {
     alert("Are you trying to secure a nuclear device?");
-  }
-  else {
+  } else {
     generatePassword(length);
   }
 }
 
-// $("#upperCaseChecked").bootstrapSwitch({onColor: 'danger'});
+//ties changing of input slider and input field
+function updateLengthInput(length) {
+  document.getElementById("lengthInput").value = length;
+}
+function updateLengthSlder(length) {
+  document.getElementById("lengthSlider").value = length;
+}
