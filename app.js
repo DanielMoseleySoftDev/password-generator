@@ -12,26 +12,19 @@ var includeSymbols = false;
 function generatePassword(length) {
   //check selected options by looking for variables set to true
   const optionsArray = [includeLowerCase, includeUpperCase, includeNumbers, includeSymbols];
-  const selectedOptions = function() {
-    let selectedOptions = [];
+  const numberOfOptions = function() {
+    let numOptions = 0;
     for (const option of optionsArray) {
       if (option === true) {
-        selectedOptions.push(option);
+        numOptions++;
       }
     }
-    return selectedOptions;
+    return numOptions;
   }();
 
   //ensures an even split of the desired options
   const characterSplit = length / numberOfOptions;
-  // const isWholeNumber = function() {
-  //   if (characterSplit % 2 === 0) {
-  //     return true;
-  //   }
-  //   else {
-  //     return false;
-  //   }
-  // }();
+  console.log(characterSplit);
 
   let lowerCaseSegment = [];
   let upperCaseSegment = [];
@@ -127,18 +120,3 @@ function generateClicked() {
 }
 
 // $("#upperCaseChecked").bootstrapSwitch({onColor: 'danger'});
-
-
-
-
-
-const optionsArray = [includeLowerCase, includeUpperCase, includeNumbers, includeSymbols];
-const selectedOptions = function() {
-  let selectedOptions = [];
-  for (const option of optionsArray) {
-    if (option === true) {
-      selectedOptions.push(option);
-    }
-  }
-  return selectedOptions;
-}();
