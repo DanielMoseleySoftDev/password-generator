@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Password generator</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <h1>Password Generator</h1>
+  <h3 class="password" id="password">Password</h3>
+
+  <form>
+    <div class="form-group form-div">
+      <label class="length-label" for="selectLength">Password Length</label>
+      <input type="range" class="custom-range" id="lengthSlider" min="6" max="128" value="6" onChange="updateLengthInput(this.value)">
+      <div class="form-div">
+        <input type="number" class="length-input" id="lengthInput" min="6" max="128" value="6"/>
+        <div class="custom-control custom-switch">
+          <input type="checkbox" class="custom-control-input" id="upperCaseChecked" onChange="setOption(this.id)">
+          <label class="custom-control-label" for="upperCaseChecked">Include Uppercase Letters</label>
+        </div>
+        <div class="custom-control custom-switch">
+          <input type="checkbox" class="custom-control-input" id="numbersChecked" onChange="setOption(this.id)">
+          <label class="custom-control-label" for="numbersChecked">Include Numbers</label>
+        </div>
+        <div class="custom-control custom-switch">
+          <input type="checkbox" class="custom-control-input" id="symbolsChecked" onChange="setOption(this.id)">
+          <label class="custom-control-label" for="symbolsChecked">Include Symbols</label>
+        </div>
+        <button class="btn" type="button" onClick="generateClicked()">Generate</button>
+      </div>
+    </div>
+  </form>
+
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
